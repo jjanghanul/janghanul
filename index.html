@@ -3,84 +3,651 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>간단한 웹페이지</title>
+  <title>MODA24 | 메인</title>
   <style>
     :root {
-      --bg1: #f4f7ff;
-      --bg2: #e9fff3;
-      --card: #ffffff;
-      --text: #1d2433;
-      --accent: #1f7a8c;
+      --bg: #faf8f5;
+      --surface: #ffffff;
+      --surface-soft: #f2ede5;
+      --text: #201c19;
+      --text-muted: #6e655d;
+      --line: #e7ddd0;
+      --accent: #d84d2a;
+      --accent-dark: #b3391b;
+      --green: #1f6f50;
+      --radius-lg: 24px;
+      --radius-md: 14px;
+      --shadow: 0 14px 32px rgba(23, 18, 14, 0.08);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
+    html,
     body {
       margin: 0;
-      min-height: 100vh;
+      padding: 0;
       font-family: "Noto Sans KR", "Pretendard", sans-serif;
       color: var(--text);
-      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      background:
+        radial-gradient(1200px 420px at 10% -8%, #ffe4d0 0%, rgba(255, 228, 208, 0) 70%),
+        radial-gradient(1000px 420px at 92% 8%, #def3eb 0%, rgba(222, 243, 235, 0) 62%),
+        var(--bg);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .top-banner {
+      background: linear-gradient(90deg, #182237, #0f3143);
+      color: #fff;
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 10px 12px;
+      letter-spacing: 0.01em;
+    }
+
+    .top-banner b {
+      color: #ffd7a8;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(10px);
+      background: rgba(250, 248, 245, 0.9);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .header-row {
       display: grid;
-      place-items: center;
-      padding: 24px;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 14px;
+      min-height: 72px;
     }
 
-    .card {
-      width: min(680px, 100%);
-      background: var(--card);
-      border-radius: 16px;
-      padding: 28px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
     }
 
-    h1 {
-      margin: 0 0 10px;
-      font-size: clamp(1.6rem, 3.5vw, 2.1rem);
+    .logo b {
+      color: var(--accent);
     }
 
-    p {
-      margin: 0 0 18px;
-      line-height: 1.6;
+    .search-box {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 12px;
     }
 
-    button,
-    .nav-link {
+    .search-box input {
       border: 0;
-      border-radius: 10px;
-      padding: 10px 14px;
+      outline: none;
+      background: transparent;
+      width: 100%;
+      font-size: 0.95rem;
+    }
+
+    .search-box button {
+      border: 0;
       background: var(--accent);
       color: #fff;
-      font-size: 0.95rem;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-weight: 600;
       cursor: pointer;
-      text-decoration: none;
+    }
+
+    .quick-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.92rem;
+    }
+
+    .cart-pill {
+      background: #1b202f;
+      color: #fff;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 600;
+    }
+
+    .menu-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 12px 0 14px;
+    }
+
+    .menu-link {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 0.9rem;
+    }
+
+    main {
+      padding: 26px 0 54px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+    }
+
+    .hero-main {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(120deg, #201b26, #2e2b57 56%, #4c6f8c);
+      border-radius: var(--radius-lg);
+      color: #fff;
+      min-height: 330px;
+      padding: 34px 34px 30px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-main h1 {
+      margin: 0 0 12px;
+      font-size: clamp(1.7rem, 3vw, 2.7rem);
+      line-height: 1.2;
+      max-width: 10.5em;
+    }
+
+    .hero-main p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.86);
+      line-height: 1.6;
+      max-width: 32em;
+    }
+
+    .hero-actions {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 11px 17px;
+      font-size: 0.93rem;
+      cursor: pointer;
+      font-weight: 700;
       display: inline-flex;
       align-items: center;
       justify-content: center;
     }
 
-    .actions {
+    .btn-primary {
+      background: #ffd67f;
+      color: #2f230f;
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.26);
+    }
+
+    .hero-tag {
+      position: absolute;
+      right: 24px;
+      top: 24px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      padding: 6px 11px;
+      font-size: 0.82rem;
+    }
+
+    .hero-side {
+      display: grid;
+      gap: 14px;
+    }
+
+    .side-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .side-card h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+
+    .coupon {
+      display: inline-block;
+      margin-top: 8px;
+      background: #fff1e3;
+      border: 1px dashed #f3ba80;
+      color: #8d4f1c;
+      font-weight: 700;
+      border-radius: 10px;
+      padding: 7px 10px;
+      font-size: 0.88rem;
+    }
+
+    .timer {
+      color: var(--green);
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .section {
+      margin-top: 32px;
+    }
+
+    .section-head {
       display: flex;
-      gap: 10px;
+      justify-content: space-between;
+      align-items: end;
+      margin-bottom: 16px;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
+    .section-head h2 {
+      margin: 0;
+      font-size: 1.32rem;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .category-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      min-height: 116px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .category-card span {
+      color: var(--text-muted);
+      font-size: 0.87rem;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .product-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .thumb {
+      aspect-ratio: 1 / 1;
+      display: grid;
+      place-items: center;
+      font-size: 2.1rem;
+      background: linear-gradient(140deg, #faf3ea, #f1f7fb);
+    }
+
+    .product-body {
+      padding: 14px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .brand {
+      color: var(--text-muted);
+      font-size: 0.81rem;
+      font-weight: 600;
+    }
+
+    .name {
+      margin: 0;
+      font-size: 0.96rem;
+      line-height: 1.45;
+      min-height: 2.9em;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .price {
+      font-size: 1.02rem;
+      font-weight: 800;
+    }
+
+    .strike {
+      color: #a19487;
+      text-decoration: line-through;
+      font-size: 0.84rem;
+    }
+
+    .badge {
+      background: #ffe8d5;
+      color: #a84b27;
+      border-radius: 6px;
+      padding: 3px 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .add-btn {
+      margin-top: 4px;
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 12px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .event-banner {
+      margin-top: 32px;
+      background: linear-gradient(120deg, #f8dcc5, #fff2cd);
+      border: 1px solid #ecc9a2;
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .event-banner h3 {
+      margin: 0 0 6px;
+      font-size: 1.2rem;
+    }
+
+    .event-banner p {
+      margin: 0;
+      color: #73573f;
+      font-size: 0.92rem;
+    }
+
+    footer {
+      margin-top: 32px;
+      border-top: 1px solid var(--line);
+      padding-top: 20px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .category-grid,
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .header-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 12px 0;
+      }
+
+      .quick-links {
+        justify-content: space-between;
+      }
+
+      .menu-row {
+        gap: 6px;
+        padding-top: 4px;
+      }
+
+      .hero-main {
+        padding: 24px 20px;
+        min-height: 300px;
+      }
+
+      .hero-tag {
+        position: static;
+        margin-bottom: 14px;
+        display: inline-block;
+      }
+
+      .category-grid,
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
-  <main class="card">
-    <h1>안녕하세요 👋</h1>
-    <p>이 페이지는 요청하신 간단한 웹페이지 예시입니다.</p>
-    <div class="actions">
-      <button id="helloBtn">클릭해보기</button>
-      <a class="nav-link" href="signup.html">회원가입 하러가기</a>
+  <div class="top-banner">첫 구매 고객 전용 <b>20% 쿠폰</b> 지급 중 • 오늘 자정 마감</div>
+
+  <header>
+    <div class="container">
+      <div class="header-row">
+        <a class="logo" href="index.html">MO<b>DA24</b></a>
+
+        <form class="search-box" onsubmit="return false;">
+          <input type="search" placeholder="원하는 상품을 검색해보세요" />
+          <button type="submit">검색</button>
+        </form>
+
+        <nav class="quick-links">
+          <a href="signup.html">회원가입</a>
+          <a href="#">로그인</a>
+          <span class="cart-pill">장바구니 <b id="cartCount">0</b></span>
+        </nav>
+      </div>
+
+      <div class="menu-row">
+        <a class="menu-link" href="#">신상품</a>
+        <a class="menu-link" href="#">베스트</a>
+        <a class="menu-link" href="#">오늘특가</a>
+        <a class="menu-link" href="#">패션</a>
+        <a class="menu-link" href="#">뷰티</a>
+        <a class="menu-link" href="#">리빙</a>
+        <a class="menu-link" href="#">식품</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="hero">
+        <article class="hero-main">
+          <span class="hero-tag">4월 스프링 페스타</span>
+          <h1>봄맞이 리프레시 세일 최대 70%</h1>
+          <p>오늘만 적용되는 카드 즉시 할인과 무료배송 쿠폰으로 이번 주 인기 아이템을 가장 좋은 가격에 만나보세요.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary">할인 상품 보기</button>
+            <button class="btn btn-outline">기획전 전체 보기</button>
+          </div>
+        </article>
+
+        <div class="hero-side">
+          <article class="side-card">
+            <h3>웰컴 쿠폰</h3>
+            <p>신규 회원에게 즉시 지급되는 쿠폰 코드</p>
+            <span class="coupon">WELCOME-20</span>
+          </article>
+          <article class="side-card">
+            <h3>오늘 특가 종료까지</h3>
+            <p class="timer" id="dealTimer">--:--:--</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>카테고리</h2>
+          <p>빠르게 둘러보고 바로 쇼핑하세요</p>
+        </div>
+        <div class="category-grid">
+          <article class="category-card"><strong>패션</strong><span>의류, 신발, 가방</span></article>
+          <article class="category-card"><strong>뷰티</strong><span>스킨케어, 메이크업</span></article>
+          <article class="category-card"><strong>리빙</strong><span>가구, 인테리어, 소품</span></article>
+          <article class="category-card"><strong>식품</strong><span>신선식품, 간편식</span></article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>오늘의 추천 상품</h2>
+          <p>지금 가장 많이 담는 아이템</p>
+        </div>
+        <div class="product-grid">
+          <article class="product-card">
+            <div class="thumb">👟</div>
+            <div class="product-body">
+              <span class="brand">MOVEON</span>
+              <h3 class="name">에어 라이트 러닝 스니커즈</h3>
+              <div class="price-row">
+                <span class="price">49,900원</span>
+                <span class="strike">69,000원</span>
+                <span class="badge">28%</span>
+              </div>
+              <button class="add-btn">장바구니 담기</button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="thumb">🧴</div>
+            <div class="product-body">
+              <span class="brand">PURELAB</span>
+              <h3 class="name">세라마이드 데일리 수분 크림 2개 세트</h3>
+              <div class="price-row">
+                <span class="price">32,000원</span>
+                <span class="strike">44,000원</span>
+                <span class="badge">27%</span>
+              </div>
+              <button class="add-btn">장바구니 담기</button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="thumb">🛋️</div>
+            <div class="product-body">
+              <span class="brand">HOMEWEAVE</span>
+              <h3 class="name">코튼 텍스처 쿠션 커버 4종</h3>
+              <div class="price-row">
+                <span class="price">18,500원</span>
+                <span class="strike">26,000원</span>
+                <span class="badge">29%</span>
+              </div>
+              <button class="add-btn">장바구니 담기</button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="thumb">☕</div>
+            <div class="product-body">
+              <span class="brand">ROASTED</span>
+              <h3 class="name">싱글오리진 드립백 30개입</h3>
+              <div class="price-row">
+                <span class="price">21,900원</span>
+                <span class="strike">30,000원</span>
+                <span class="badge">26%</span>
+              </div>
+              <button class="add-btn">장바구니 담기</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="event-banner">
+        <div>
+          <h3>친구 초대 이벤트</h3>
+          <p>친구가 첫 구매 완료하면 두 분 모두 5,000포인트 지급</p>
+        </div>
+        <button class="btn" style="background:#201c19;color:#fff;">이벤트 참여하기</button>
+      </section>
+
+      <footer>
+        <div>MODA24(주) | 대표: 김모다 | 사업자등록번호: 123-45-67890</div>
+        <div>고객센터 1588-2400 (평일 10:00 - 18:00) | 서울시 강남구 테헤란로 00</div>
+      </footer>
     </div>
   </main>
 
   <script>
-    document.getElementById("helloBtn").addEventListener("click", function () {
-      alert("버튼이 정상적으로 동작합니다.");
+    let cartCount = 0;
+    const cartCountEl = document.getElementById("cartCount");
+    const addButtons = document.querySelectorAll(".add-btn");
+    const dealTimer = document.getElementById("dealTimer");
+
+    addButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        cartCount += 1;
+        cartCountEl.textContent = String(cartCount);
+      });
     });
+
+    function updateDealTimer() {
+      const now = new Date();
+      const end = new Date();
+      end.setHours(23, 59, 59, 999);
+      const diff = end.getTime() - now.getTime();
+
+      if (diff <= 0) {
+        dealTimer.textContent = "종료됨";
+        return;
+      }
+
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      const hh = String(hours).padStart(2, "0");
+      const mm = String(minutes).padStart(2, "0");
+      const ss = String(seconds).padStart(2, "0");
+      dealTimer.textContent = hh + ":" + mm + ":" + ss;
+    }
+
+    updateDealTimer();
+    setInterval(updateDealTimer, 1000);
   </script>
 </body>
 </html>
