@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>회원가입</title>
+  <style>
+    :root {
+      --bg1: #f4f7ff;
+      --bg2: #e9fff3;
+      --card: #ffffff;
+      --text: #1d2433;
+      --accent: #1f7a8c;
+      --line: #dce5ee;
+      --error: #d94f4f;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Noto Sans KR", "Pretendard", sans-serif;
+      color: var(--text);
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .card {
+      width: min(520px, 100%);
+      background: var(--card);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(1.5rem, 3.5vw, 2rem);
+    }
+
+    p {
+      margin: 0 0 20px;
+      line-height: 1.6;
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 11px 12px;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(31, 122, 140, 0.15);
+    }
+
+    .actions {
+      margin-top: 18px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button,
+    .ghost-link {
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    button {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .ghost-link {
+      background: #edf4f6;
+      color: #0d4854;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #message {
+      margin-top: 12px;
+      font-size: 0.92rem;
+      min-height: 1.4em;
+    }
+
+    #message.error {
+      color: var(--error);
+    }
+
+    #message.success {
+      color: #127b4d;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>회원가입</h1>
+    <p>서비스 이용을 위해 아래 정보를 입력해 주세요.</p>
+
+    <form id="signupForm" novalidate>
+      <div class="field">
+        <label for="name">이름</label>
+        <input id="name" name="name" type="text" placeholder="홍길동" required />
+      </div>
+
+      <div class="field">
+        <label for="email">이메일</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" required />
+      </div>
+
+      <div class="field">
+        <label for="password">비밀번호</label>
+        <input id="password" name="password" type="password" minlength="8" placeholder="8자 이상 입력" required />
+      </div>
+
+      <div class="field">
+        <label for="confirmPassword">비밀번호 확인</label>
+        <input id="confirmPassword" name="confirmPassword" type="password" minlength="8" placeholder="비밀번호를 다시 입력" required />
+      </div>
+
+      <div class="actions">
+        <button type="submit">가입하기</button>
+        <a class="ghost-link" href="index.html">메인으로 돌아가기</a>
+      </div>
+
+      <div id="message" aria-live="polite"></div>
+    </form>
+  </main>
+
+  <script>
+    const form = document.getElementById("signupForm");
+    const message = document.getElementById("message");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      if (!name || !email || !password || !confirmPassword) {
+        message.className = "error";
+        message.textContent = "모든 항목을 입력해 주세요.";
+        return;
+      }
+
+      if (password.length < 8) {
+        message.className = "error";
+        message.textContent = "비밀번호는 8자 이상이어야 합니다.";
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        message.className = "error";
+        message.textContent = "비밀번호가 일치하지 않습니다.";
+        return;
+      }
+
+      message.className = "success";
+      message.textContent = "회원가입이 완료되었습니다. (데모 화면)";
+      form.reset();
+    });
+  </script>
+</body>
+</html>

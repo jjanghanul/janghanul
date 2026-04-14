@@ -44,7 +44,8 @@
       line-height: 1.6;
     }
 
-    button {
+    button,
+    .nav-link {
       border: 0;
       border-radius: 10px;
       padding: 10px 14px;
@@ -52,14 +53,28 @@
       color: #fff;
       font-size: 0.95rem;
       cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
   </style>
 </head>
 <body>
   <main class="card">
     <h1>안녕하세요 👋</h1>
     <p>이 페이지는 요청하신 간단한 웹페이지 예시입니다.</p>
-    <button id="helloBtn">클릭해보기</button>
+    <div class="actions">
+      <button id="helloBtn">클릭해보기</button>
+      <a class="nav-link" href="signup.html">회원가입 하러가기</a>
+    </div>
   </main>
 
   <script>
