@@ -525,76 +525,15 @@
           <h2>카테고리</h2>
           <p>빠르게 둘러보고 바로 쇼핑하세요</p>
         </div>
-        <div class="category-grid">
-          <article class="category-card"><strong>패션</strong><span>의류, 신발, 가방</span></article>
-          <article class="category-card"><strong>뷰티</strong><span>스킨케어, 메이크업</span></article>
-          <article class="category-card"><strong>리빙</strong><span>가구, 인테리어, 소품</span></article>
-          <article class="category-card"><strong>식품</strong><span>신선식품, 간편식</span></article>
-        </div>
+        <div class="category-grid" id="categoryGrid"></div>
       </section>
 
       <section class="section">
         <div class="section-head">
           <h2>오늘의 추천 상품</h2>
-          <p>지금 가장 많이 담는 아이템</p>
+          <p>임의 예시 상품 데이터로 구성된 메인 리스트</p>
         </div>
-        <div class="product-grid">
-          <article class="product-card">
-            <div class="thumb">👟</div>
-            <div class="product-body">
-              <span class="brand">MOVEON</span>
-              <h3 class="name">에어 라이트 러닝 스니커즈</h3>
-              <div class="price-row">
-                <span class="price">49,900원</span>
-                <span class="strike">69,000원</span>
-                <span class="badge">28%</span>
-              </div>
-              <button class="add-btn">장바구니 담기</button>
-            </div>
-          </article>
-
-          <article class="product-card">
-            <div class="thumb">🧴</div>
-            <div class="product-body">
-              <span class="brand">PURELAB</span>
-              <h3 class="name">세라마이드 데일리 수분 크림 2개 세트</h3>
-              <div class="price-row">
-                <span class="price">32,000원</span>
-                <span class="strike">44,000원</span>
-                <span class="badge">27%</span>
-              </div>
-              <button class="add-btn">장바구니 담기</button>
-            </div>
-          </article>
-
-          <article class="product-card">
-            <div class="thumb">🛋️</div>
-            <div class="product-body">
-              <span class="brand">HOMEWEAVE</span>
-              <h3 class="name">코튼 텍스처 쿠션 커버 4종</h3>
-              <div class="price-row">
-                <span class="price">18,500원</span>
-                <span class="strike">26,000원</span>
-                <span class="badge">29%</span>
-              </div>
-              <button class="add-btn">장바구니 담기</button>
-            </div>
-          </article>
-
-          <article class="product-card">
-            <div class="thumb">☕</div>
-            <div class="product-body">
-              <span class="brand">ROASTED</span>
-              <h3 class="name">싱글오리진 드립백 30개입</h3>
-              <div class="price-row">
-                <span class="price">21,900원</span>
-                <span class="strike">30,000원</span>
-                <span class="badge">26%</span>
-              </div>
-              <button class="add-btn">장바구니 담기</button>
-            </div>
-          </article>
-        </div>
+        <div class="product-grid" id="productGrid"></div>
       </section>
 
       <section class="event-banner">
@@ -613,16 +552,83 @@
   </main>
 
   <script>
-    let cartCount = 0;
+    const categories = [
+      { name: "패션", description: "의류, 신발, 가방" },
+      { name: "뷰티", description: "스킨케어, 메이크업" },
+      { name: "리빙", description: "가구, 인테리어, 소품" },
+      { name: "식품", description: "신선식품, 간편식" }
+    ];
+
+    const products = [
+      { icon: "👟", brand: "MOVEON", name: "에어 라이트 러닝 스니커즈", price: 49900, originalPrice: 69000, discount: 28 },
+      { icon: "🧴", brand: "PURELAB", name: "세라마이드 데일리 수분 크림 2개 세트", price: 32000, originalPrice: 44000, discount: 27 },
+      { icon: "🛋️", brand: "HOMEWEAVE", name: "코튼 텍스처 쿠션 커버 4종", price: 18500, originalPrice: 26000, discount: 29 },
+      { icon: "☕", brand: "ROASTED", name: "싱글오리진 드립백 30개입", price: 21900, originalPrice: 30000, discount: 26 },
+      { icon: "🎧", brand: "WAVEPOD", name: "노이즈 캔슬링 블루투스 이어버드", price: 79000, originalPrice: 109000, discount: 27 },
+      { icon: "⌚", brand: "TIMEBIT", name: "스마트 헬스 트래커 워치", price: 55900, originalPrice: 78000, discount: 28 },
+      { icon: "🧺", brand: "CLEANMATE", name: "3단 분리형 빨래 바구니", price: 26900, originalPrice: 35000, discount: 23 },
+      { icon: "🥗", brand: "GREENFORK", name: "한끼 샐러드 7일 패키지", price: 38900, originalPrice: 52000, discount: 25 }
+    ];
+
+    const categoryGrid = document.getElementById("categoryGrid");
+    const productGrid = document.getElementById("productGrid");
     const cartCountEl = document.getElementById("cartCount");
-    const addButtons = document.querySelectorAll(".add-btn");
     const dealTimer = document.getElementById("dealTimer");
 
-    addButtons.forEach(function (button) {
-      button.addEventListener("click", function () {
-        cartCount += 1;
-        cartCountEl.textContent = String(cartCount);
-      });
+    let cartCount = 0;
+
+    function formatPrice(value) {
+      return value.toLocaleString("ko-KR") + "원";
+    }
+
+    function renderCategories() {
+      const markup = categories.map(function (category) {
+        return (
+          '<article class="category-card">' +
+          '<strong>' + category.name + "</strong>" +
+          "<span>" + category.description + "</span>" +
+          "</article>"
+        );
+      }).join("");
+
+      categoryGrid.innerHTML = markup;
+    }
+
+    function renderProducts() {
+      const markup = products.map(function (product, index) {
+        return (
+          '<article class="product-card">' +
+          '<div class="thumb">' + product.icon + "</div>" +
+          '<div class="product-body">' +
+          '<span class="brand">' + product.brand + "</span>" +
+          '<h3 class="name">' + product.name + "</h3>" +
+          '<div class="price-row">' +
+          '<span class="price">' + formatPrice(product.price) + "</span>" +
+          '<span class="strike">' + formatPrice(product.originalPrice) + "</span>" +
+          '<span class="badge">' + product.discount + "%</span>" +
+          "</div>" +
+          '<button class="add-btn" data-product-index="' + String(index) + '">장바구니 담기</button>' +
+          "</div>" +
+          "</article>"
+        );
+      }).join("");
+
+      productGrid.innerHTML = markup;
+    }
+
+    productGrid.addEventListener("click", function (event) {
+      const target = event.target;
+
+      if (!(target instanceof HTMLButtonElement)) {
+        return;
+      }
+
+      if (!target.classList.contains("add-btn")) {
+        return;
+      }
+
+      cartCount += 1;
+      cartCountEl.textContent = String(cartCount);
     });
 
     function updateDealTimer() {
@@ -646,6 +652,8 @@
       dealTimer.textContent = hh + ":" + mm + ":" + ss;
     }
 
+    renderCategories();
+    renderProducts();
     updateDealTimer();
     setInterval(updateDealTimer, 1000);
   </script>
