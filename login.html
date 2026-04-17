@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>회원가입</title>
+  <title>로그인</title>
   <style>
     :root {
-      --bg1: #f4f7ff;
-      --bg2: #e9fff3;
+      --bg1: #f0f8ff;
+      --bg2: #f8fff1;
       --card: #ffffff;
       --text: #1d2433;
-      --accent: #1f7a8c;
+      --accent: #2563eb;
       --line: #dce5ee;
       --error: #d94f4f;
     }
@@ -29,7 +29,7 @@
     }
 
     .card {
-      width: min(520px, 100%);
+      width: min(500px, 100%);
       background: var(--card);
       border-radius: 16px;
       padding: 28px;
@@ -68,7 +68,7 @@
 
     input:focus {
       border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(31, 122, 140, 0.15);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
     }
 
     .actions {
@@ -94,8 +94,8 @@
     }
 
     .ghost-link {
-      background: #edf4f6;
-      color: #0d4854;
+      background: #edf3ff;
+      color: #0f317a;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -118,15 +118,10 @@
 </head>
 <body>
   <main class="card">
-    <h1>회원가입</h1>
-    <p>서비스 이용을 위해 아래 정보를 입력해 주세요.</p>
+    <h1>로그인</h1>
+    <p>가입한 이메일과 비밀번호로 로그인해 주세요.</p>
 
-    <form id="signupForm" method="post" action="register.php" novalidate>
-      <div class="field">
-        <label for="name">이름</label>
-        <input id="name" name="name" type="text" placeholder="홍길동" required />
-      </div>
-
+    <form id="loginForm" method="post" action="login.php" novalidate>
       <div class="field">
         <label for="email">이메일</label>
         <input id="email" name="email" type="email" placeholder="you@example.com" required />
@@ -134,16 +129,12 @@
 
       <div class="field">
         <label for="password">비밀번호</label>
-        <input id="password" name="password" type="password" minlength="8" placeholder="8자 이상 입력" required />
-      </div>
-
-      <div class="field">
-        <label for="confirmPassword">비밀번호 확인</label>
-        <input id="confirmPassword" name="confirmPassword" type="password" minlength="8" placeholder="비밀번호를 다시 입력" required />
+        <input id="password" name="password" type="password" placeholder="비밀번호 입력" required />
       </div>
 
       <div class="actions">
-        <button type="submit">가입하기</button>
+        <button type="submit">로그인</button>
+        <a class="ghost-link" href="signup.html">회원가입</a>
         <a class="ghost-link" href="index.html">메인으로 돌아가기</a>
       </div>
 
@@ -152,49 +143,38 @@
   </main>
 
   <script>
-    const form = document.getElementById("signupForm");
+    const form = document.getElementById("loginForm");
     const message = document.getElementById("message");
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const name = document.getElementById("name").value.trim();
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
-      const confirmPassword = document.getElementById("confirmPassword").value;
 
-      if (!name || !email || !password || !confirmPassword) {
+      if (!email || !password) {
         message.className = "error";
-        message.textContent = "모든 항목을 입력해 주세요.";
-        return;
-      }
-
-      if (password.length < 8) {
-        message.className = "error";
-        message.textContent = "비밀번호는 8자 이상이어야 합니다.";
-        return;
-      }
-
-      if (password !== confirmPassword) {
-        message.className = "error";
-        message.textContent = "비밀번호가 일치하지 않습니다.";
+        message.textContent = "이메일과 비밀번호를 입력해 주세요.";
         return;
       }
 
       const formData = new FormData(form);
 
-      fetch("register.php", {
+      fetch("login.php", {
         method: "POST",
         body: formData,
       })
         .then(async (response) => {
           const data = await response.json();
           if (!response.ok || !data.success) {
-            throw new Error(data.message || "회원가입 처리 중 오류가 발생했습니다.");
+            throw new Error(data.message || "로그인 처리 중 오류가 발생했습니다.");
           }
+
           message.className = "success";
-          message.textContent = data.message;
-          form.reset();
+          message.textContent = data.message + " 메인 페이지로 이동합니다.";
+          setTimeout(() => {
+            window.location.href = "index.html";
+          }, 800);
         })
         .catch((error) => {
           message.className = "error";
